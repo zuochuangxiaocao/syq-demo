@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syq.demo.mybatisplus.mapper.CouponBirthdayMapper" >
+    <resultMap id="BaseResultMap" type="com.syq.demo.mybatisplus.model.CouponBirthday" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="member_id" property="memberId" jdbcType="INTEGER" />
+        <result column="store_id" property="storeId" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, member_id, store_id, create_time
+    </sql>
+
+    <select id="selectPageVo" resultType="com.syq.demo.mybatisplus.model.CouponBirthday">
+        SELECT
+            <include refid="Base_Column_List" />
+         FROM
+            t_coupon_birthday
+         WHERE
+            id=#{id}
+    </select>
+
+    <select id="selectMyPage" resultType="com.syq.demo.mybatisplus.dto.CouponBirthdayDto">
+         SELECT
+			b.id id,
+			b.member_id memberId,
+			b.store_id storeId,
+			s.store_name storeName
+            FROM
+                t_coupon_birthday b
+            LEFT JOIN
+                t_store s on b.store_id=s.id
+            WHERE
+                b.id=#{id}
+    </select>
+
+
+</mapper>
