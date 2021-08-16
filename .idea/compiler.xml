@@ -7,22 +7,27 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="elasticsearch" />
-        <module name="syq-demo" />
-        <module name="validation" />
+        <module name="demo" />
         <module name="rocket-mq" />
+        <module name="validation" />
         <module name="mybatis-plus" />
+        <module name="swgger" />
+        <module name="elasticsearch" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="demo" target="1.8" />
+      <module name="elasticsearch" target="1.8" />
       <module name="syq-demo" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="demo" options="-parameters" />
       <module name="elasticsearch" options="-parameters" />
       <module name="mybatis-plus" options="-parameters" />
       <module name="rocket-mq" options="-parameters" />
+      <module name="swgger" options="-parameters" />
       <module name="validation" options="-parameters" />
     </option>
   </component>

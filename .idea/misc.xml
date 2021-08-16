@@ -5,10 +5,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/elasticsearch/pom.xml" />
         <option value="$PROJECT_DIR$/mybatis-plus/pom.xml" />
         <option value="$PROJECT_DIR$/rocket-mq/pom.xml" />
         <option value="$PROJECT_DIR$/validation/pom.xml" />
+        <option value="$PROJECT_DIR$/swgger/pom.xml" />
       </list>
     </option>
   </component>

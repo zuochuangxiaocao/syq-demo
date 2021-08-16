@@ -61,17 +61,17 @@ class ApiApplicationTests {
         DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest("sxx_index");
 
         AcknowledgedResponse acknowledgedResponse = restHighLevelClient.indices()
-                .delete(deleteIndexRequest,RequestOptions.DEFAULT);
+                .delete(deleteIndexRequest, RequestOptions.DEFAULT);
 
         System.out.println(acknowledgedResponse.isAcknowledged());
     }
 
     //创建文档
     @Test
-    void  createDocument() throws IOException {
+    void createDocument() throws IOException {
 
         //创建对象
-        User user = new User("sxx",1);
+        User user = new User("sxx", 1);
         //创建请求
         IndexRequest indexRequest = new IndexRequest("sxx_index");
         //创建规则
@@ -90,7 +90,7 @@ class ApiApplicationTests {
     @Test
     void getDoument() throws IOException {
 
-        GetRequest request = new GetRequest("sxx_index","1");
+        GetRequest request = new GetRequest("sxx_index", "1");
         GetResponse getResponse = restHighLevelClient.get(request, RequestOptions.DEFAULT);
         System.out.println(getResponse.getSource());
         System.out.println(getResponse.toString());
@@ -99,11 +99,11 @@ class ApiApplicationTests {
     //更新文档
     @Test
     void updateDoument() throws IOException {
-        UpdateRequest request = new UpdateRequest("sxx_index","1");
+        UpdateRequest request = new UpdateRequest("sxx_index", "1");
 
-        User user = new User("xiaoming",100);
+        User user = new User("xiaoming", 100);
 
-        request.doc(JSON.toJSONString(user),XContentType.JSON);
+        request.doc(JSON.toJSONString(user), XContentType.JSON);
 
         UpdateResponse update = restHighLevelClient.update(request, RequestOptions.DEFAULT);
 
@@ -114,7 +114,7 @@ class ApiApplicationTests {
     //删除文档
     @Test
     void deleteDoument() throws IOException {
-        DeleteRequest deleteRequest = new DeleteRequest("sxx_index","3");
+        DeleteRequest deleteRequest = new DeleteRequest("sxx_index", "3");
         deleteRequest.timeout("1s");
         DeleteResponse delete = restHighLevelClient.delete(deleteRequest, RequestOptions.DEFAULT);
 
@@ -130,21 +130,21 @@ class ApiApplicationTests {
         bulkRequest.timeout("10s");
 
         ArrayList<User> users = new ArrayList<>();
-        users.add(new User("xiaoming1",11));
-        users.add(new User("xiaoming2",12));
-        users.add(new User("xiaoming3",13));
-        users.add(new User("xiaoming4",14));
-        users.add(new User("xiaoming5",15));
-        users.add(new User("xiaoming6",16));
-        users.add(new User("xiaoming7",17));
-        users.add(new User("xiaoming8",18));
-        users.add(new User("xiaoming9",19));
+        users.add(new User("xiaoming1", 11));
+        users.add(new User("xiaoming2", 12));
+        users.add(new User("xiaoming3", 13));
+        users.add(new User("xiaoming4", 14));
+        users.add(new User("xiaoming5", 15));
+        users.add(new User("xiaoming6", 16));
+        users.add(new User("xiaoming7", 17));
+        users.add(new User("xiaoming8", 18));
+        users.add(new User("xiaoming9", 19));
 
 
         for (int i = 0; i < users.size(); i++) {
             bulkRequest.add(new IndexRequest("sxx_index")
-                    .id(""+(i+1))
-                    .source(JSON.toJSONString(users.get(i)),XContentType.JSON)
+                    .id("" + (i + 1))
+                    .source(JSON.toJSONString(users.get(i)), XContentType.JSON)
             );
         }
         BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
@@ -161,7 +161,7 @@ class ApiApplicationTests {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
         //查询条件
-        TermQueryBuilder termQueryBuilder = new TermQueryBuilder("name","xiaoming1");//精确匹配
+        TermQueryBuilder termQueryBuilder = new TermQueryBuilder("name", "xiaoming1");//精确匹配
         searchSourceBuilder.query(termQueryBuilder);
         searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
 
@@ -183,19 +183,19 @@ class ApiApplicationTests {
         System.out.println(JSON.toJSONString(search.getHits()));
 
         System.out.println("-----------------------------------");
-        ArrayList<Map<String,Object>> objects = new ArrayList<>();
+        ArrayList<Map<String, Object>> objects = new ArrayList<>();
         for (SearchHit hit : search.getHits().getHits()) {
             //System.out.println(hit.getSourceAsMap());
             Map<String, HighlightField> highlightFields = hit.getHighlightFields();
             HighlightField age = highlightFields.get("name");
             Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-            if(age != null){
+            if (age != null) {
                 Text[] fragments = age.fragments();
                 String n_title = "";
                 for (Text text : fragments) {
                     n_title += text;
                 }
-                sourceAsMap.put("age",n_title);
+                sourceAsMap.put("age", n_title);
             }
             objects.add(sourceAsMap);
         }

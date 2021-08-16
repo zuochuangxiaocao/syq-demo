@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Configuration;
 public class EsClientConfig {
 
     @Bean
-    public RestHighLevelClient restHighLevelClient(){
+    public RestHighLevelClient restHighLevelClient() {
         RestHighLevelClient client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("127.0.0.1",9200,"http")));
+                RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
         return client;
     }
 
