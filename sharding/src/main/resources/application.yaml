@@ -1,0 +1,38 @@
+
+
+#数据源
+#spring:
+#    #shardingsphere相关配置
+#    shardingsphere:
+#      datasource:
+#        names: m1   #配置库的名字，随意
+#        m1:   #配置目前m1库的数据源信息
+#          #type: com.alibaba.druid.pool.DruidDataSource
+#          type: com.zaxxer.hikari.HikariDataSource
+#          driverClassName: com.mysql.jdbc.Driver
+#          url: jdbc:mysql://localhost:3306/sharding?useUnicode=true&characterEncoding=utf8
+#          username: root
+#          password: 123456
+#      sharding:
+#        tables:
+#          t_order:  # 指定t_order表的数据分布情况，配置数据节点
+#            actualDataNodes: m1.t_order_$->{1..2}
+#            tableStrategy:
+#              inline:   # 指定t_order表的分片策略，分片策略包括分片键和分片算法
+#                shardingColumn: storeId
+#                algorithmExpression: t_order_$->{storeId % 2 + 1}
+#            keyGenerator:   # 指定t_order表的主键生成策略为SNOWFLAKE
+#              type: SNOWFLAKE  #主键生成策略为SNOWFLAKE
+#              column: id  #指定主键
+#      props:
+#        sql: true
+#    main:
+#      allow-bean-definition-overriding: true
+
+
+#mybatis-plus配置控制台打印完整带参数SQL语句
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
