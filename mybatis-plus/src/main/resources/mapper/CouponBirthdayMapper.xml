@@ -25,12 +25,9 @@
          SELECT
 			b.id id,
 			b.member_id memberId,
-			b.store_id storeId,
-			s.store_name storeName
+			b.store_id storeId
             FROM
                 t_coupon_birthday b
-            LEFT JOIN
-                t_store s on b.store_id=s.id
             WHERE
                 b.id=#{id}
     </select>
